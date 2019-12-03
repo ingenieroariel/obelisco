@@ -167,6 +167,7 @@ in rec {
 
   serverModules = {
     mkBaseEc2 = { hostName, routeHost, enableHttps, adminEmail, ... }: {...}: {
+      # the /dev/xdva should be fixed.
       imports = [
         (pkgs.path + /nixos/modules/virtualisation/amazon-image.nix)
       ];
