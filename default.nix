@@ -167,7 +167,6 @@ in rec {
 
   serverModules = {
     mkBaseEc2 = { hostName, routeHost, enableHttps, adminEmail, ... }: {...}: {
-      # the /dev/xdva should be fixed.
       imports = [
         (pkgs.path + /nixos/modules/virtualisation/amazon-image.nix)
       ];
@@ -179,6 +178,8 @@ in rec {
         "${routeHost}".email = adminEmail;
       } else {};
       ec2.hvm = true;
+      # Use efi instead of grub to avoid /dev/xdva problem in non-amazon machines.
+      ec2.efi = true;
     };
 
     mkObeliskApp =
