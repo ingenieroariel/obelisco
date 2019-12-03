@@ -152,8 +152,9 @@ in rec {
   serverModules = {
     mkBaseEc2 = { hostName, routeHost, enableHttps, adminEmail, ... }: {...}: {
       imports = [
-        (pkgs.path + /nixos/modules/virtualisation/amazon-image.nix)
+       # (pkgs.path + /nixos/modules/virtualisation/amazon-image.nix)
       ];
+      boot.loader.grub.device = "nodev" ;
       networking = {
         inherit hostName;
         firewall.allowedTCPPorts = if enableHttps then [ 80 443 ] else [ 80 ];
@@ -238,8 +239,10 @@ in rec {
           (serverModules.mkBaseEc2 args)
           (serverModules.mkObeliskApp args)
           ./acme.nix
+          ./amazon-image.nix
         ];
         disabledModules = [
+          (pkgs.path + /nixos/modules/virtualisation/amazon-image.nix)
           (pkgs.path + /nixos/modules/security/acme.nix)
         ];
         nixpkgs.overlays = [
