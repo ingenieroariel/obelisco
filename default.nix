@@ -168,7 +168,7 @@ in rec {
   serverModules = {
     mkBaseEc2 = { hostName, routeHost, enableHttps, adminEmail, ... }: {...}: {
       imports = [
-        (pkgs.path + /nixos/modules/virtualisation/amazon-image.nix)
+        (pkgs.path + /nixos/modules/virtualisation/virtualbox-image.nix)
       ];
       networking = {
         inherit hostName;
@@ -177,9 +177,6 @@ in rec {
       security.acme.certs = if enableHttps then {
         "${routeHost}".email = adminEmail;
       } else {};
-      ec2.hvm = true;
-      # Use efi instead of grub to avoid /dev/xdva problem in non-amazon machines.
-      ec2.efi = true;
     };
 
     mkObeliskApp =
