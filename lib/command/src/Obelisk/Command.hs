@@ -59,7 +59,7 @@ args cfg = Args <$> noHandoff <*> verbose <*> obCommand cfg
 noHandoff :: Parser Bool
 noHandoff = flag False True $ mconcat
   [ long "no-handoff"
-  , help "Do not hand off execution to project-specific implementation of this command"
+  , help "Do not hand off execution to barrel-magnific implementation of this command"
   , hidden
   ]
 
